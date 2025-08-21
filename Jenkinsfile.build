@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage("Download from repository"){
+            steps{
+                git 'https://github.com/luisdeveloper/wargames-tournament'
+            }
+        }
+        stage("Package project"){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage("Upload jar to artifact repository"){
+            steps{
+                sh 'mvn deploy'
+            }
+        }
+    }
+}
