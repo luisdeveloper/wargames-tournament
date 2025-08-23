@@ -1,0 +1,56 @@
+pipeline{
+    agent any
+    
+    environment {
+        JAR_GROUP_ID = "com.git.luisdeveloper"
+        JAR_ARTIFACT_ID = "wargames-tournament"
+        JAR_VERSION = "0.0.1-SNAPSHOT"
+        JAR_REPO_URL = "https://maven.pkg.github.com/luisdeveloper/wargames-tournament"
+        LOCAL_JAR_PATH = "${JAR_ARTIFACT_ID}-${JAR_VERSION}.jar"
+        DOCKER_IMAGE = "wargames-tournament-app"
+        CONTAINER_NAME = "wargames-tournament-container"
+    }
+    
+    stages{
+        stage("Clean workspace"){
+            steps{
+                deleteDir()    
+            }
+        }
+        stage("Download Dockerfile"){
+            steps{
+                git 'https://github.com/luisdeveloper/wargames-tournament'
+            }
+        }
+        stage("Download JAR"){
+            steps{
+                sh '''
+                            mkdir -p ~/.m2
+                            mvn dependency:get \
+                          -DgroupId=${JAR_GROUP_ID} \
+                          -DartifactId=${JAR_ARTIFACT_ID} \
+                          -Dversion=${JAR_VERSION} \
+                          -DrepoUrl=${JAR_REPO_URL} \
+                          -Dtransitive=false \
+                          -U
+                          
+                          cp ~/.m2/repository/$(echo ${JAR_GROUP_ID} | tr '.' '/')/${JAR_ARTIFACT_ID}/${JAR_VERSION}/${JAR_ARTIFACT_ID}-${JAR_VERSION}.jar app.jar
+                        '''
+            }
+        }
+        stage("Create Docker Image"){
+            steps{
+                sh 'docker build -t ${DOCKER_IMAGE} .'
+            }
+        }
+        stage("Run Docker Container"){
+            steps{
+                sh '''
+                    docker rm -f ${CONTAINER_NAME} || true
+                    docker run -p 8081:8080 -d --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
+                '''
+            }
+        }
+        
+    }
+}
