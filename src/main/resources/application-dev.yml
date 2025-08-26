@@ -1,0 +1,23 @@
+server:
+  port: 8081                     # Evita conflicto con Jenkins (8080)
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:devdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update           # Para Semana 1: rápido. (Luego migra a Flyway)
+    show-sql: true
+  h2:
+    console:
+      enabled: true              # Consola útil en dev
+      path: /h2-console
+
+logging:
+  level:
+    root: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE

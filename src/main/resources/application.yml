@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: miniatures-tournament
+  jpa:
+    open-in-view: false         
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  # 
+logging:
+  level:
+    root: INFO
