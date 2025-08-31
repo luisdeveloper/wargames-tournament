@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    parameters {
+        choice(name: 'PROFILE', choices: ['Development', 'Production'], description: 'Choose maven profile')
+    }
     stages{
         stage("Download from repository"){
             steps{
@@ -8,7 +11,7 @@ pipeline{
         }
         stage("Package project"){
             steps{
-                sh 'mvn package'
+                sh 'mvn package -P$PROFILE'
             }
         }
         stage("Upload jar to artifact repository"){
