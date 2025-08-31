@@ -9,6 +9,15 @@ public class Player {
 	private Long id;
 	private String name;
 	private String email;
+	
+	public Player() {
+		
+	}
+	public Player(Long id, String name, String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+	}
 	public Long getId() {
 		return id;
 	}
