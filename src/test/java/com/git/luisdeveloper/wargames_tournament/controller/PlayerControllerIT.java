@@ -3,6 +3,7 @@ package com.git.luisdeveloper.wargames_tournament.controller;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,17 +36,17 @@ public class PlayerControllerIT {
 	public void init() {
 		repository.deleteAll();
 		repository.saveAll(
-				List.of(new Player(1L, "name 1", "name1@name.com"), new Player(2L, "name 2", "name2@name.com")));
+				List.of(new Player("name 1", "name1@name.com", "1234"), new Player("name 2", "name2@name.com", "1234")));
 		repository.flush();
 	}
-
+	
 	@Test
 	void whenCalling_getPLayers_return_allPlayersFromDb() throws Exception {
 		mockMvc.perform(get("/players").accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 		.andExpect(jsonPath("$.length()",is(2)))
-		.andExpect(jsonPath("$[*].name", containsInAnyOrder("name 1", "name 2")));
+		.andExpect(jsonPath("$[*].fullName", containsInAnyOrder("name 1", "name 2")));
 	}
 
 }
