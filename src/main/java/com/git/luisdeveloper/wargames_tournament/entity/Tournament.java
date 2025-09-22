@@ -16,7 +16,7 @@ public class Tournament {
 
     @NotBlank
     @Size(max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(unique=true, nullable = false, length = 100)
     private String name;
 
     @NotNull
@@ -62,6 +62,17 @@ public class Tournament {
         this.location = location;
         this.entryPrize = entryPrize;
     }
+    
+    public Tournament(Long id, String name, LocalDate beginDate, LocalDate endDate, String location, double prize, double entryPrize) {
+        this.name = name;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.entryPrize = entryPrize;
+        this.prize = prize;
+    }
+    
+    
 
     // 🔹 Getters & Setters
     public Long getId() {

@@ -1,5 +1,8 @@
 package com.git.luisdeveloper.wargames_tournament.entity;
 
+
+import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,7 +24,7 @@ public class Match {
 	private Player winner;
 	
 	
-	private String result;
+	private MatchResult result;
 	
 	public Match() {}
 	
@@ -31,6 +34,23 @@ public class Match {
 		super();
 		this.player1 = player1;
 		this.player2 = player2;
+	}
+	
+	public Match(Player player1, Player player2, Player winner, MatchResult result) {
+		super();
+		this.player1 = player1;
+		this.player2 = player2;
+		this.winner = winner;
+		this.result = result;
+	}
+	
+	public Match(Long id,Player player1, Player player2, Player winner, MatchResult result) {
+		super();
+		this.id = id;
+		this.player1 = player1;
+		this.player2 = player2;
+		this.winner = winner;
+		this.result = result;
 	}
 
 
@@ -59,10 +79,10 @@ public class Match {
 	public void setWinner(Player winner) {
 		this.winner = winner;
 	}
-	public String getResult() {
+	public MatchResult getResult() {
 		return result;
 	}
-	public void setResult(String result) {
+	public void setResult(MatchResult result) {
 		this.result = result;
 	}
 	

@@ -52,6 +52,12 @@ public class Player {
         this.points = 0;
     }
     
+    public Player(Long id, String fullName, String email, Integer points) {
+        this.fullName = fullName;
+        this.email = email;
+        this.points = points;
+    }
+    
     
 
     public Long getId() {
@@ -92,5 +98,8 @@ public class Player {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+    public void increasePoints(int points) {
+    	this.points += points;
     }
 }
