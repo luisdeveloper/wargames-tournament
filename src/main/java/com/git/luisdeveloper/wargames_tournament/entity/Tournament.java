@@ -40,7 +40,7 @@ public class Tournament {
 
     @PositiveOrZero
     @Column(nullable = false)
-    private double entryPrize;
+    private double entryPrice;
 
     @OneToMany
     @JoinTable(
@@ -50,7 +50,7 @@ public class Tournament {
     )
     private List<Player> competitors = new ArrayList<>();
 
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="tournament" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Round> rounds = new ArrayList<>();
 
     public Tournament() {}
@@ -60,7 +60,7 @@ public class Tournament {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.location = location;
-        this.entryPrize = entryPrize;
+        this.entryPrice = entryPrize;
     }
     
     public Tournament(Long id, String name, LocalDate beginDate, LocalDate endDate, String location, double prize, double entryPrize) {
@@ -68,7 +68,7 @@ public class Tournament {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.location = location;
-        this.entryPrize = entryPrize;
+        this.entryPrice = entryPrize;
         this.prize = prize;
     }
     
@@ -123,12 +123,12 @@ public class Tournament {
         this.prize = prize;
     }
 
-    public double getEntryPrize() {
-        return entryPrize;
+    public double getEntryPrice() {
+        return entryPrice;
     }
 
-    public void setEntryPrize(double entryPrize) {
-        this.entryPrize = entryPrize;
+    public void setEntryPrice(double entryPrize) {
+        this.entryPrice = entryPrize;
     }
 
     public List<Player> getCompetitors() {

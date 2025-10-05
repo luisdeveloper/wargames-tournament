@@ -1,18 +1,23 @@
 package com.git.luisdeveloper.wargames_tournament.service;
 
-import java.util.List;
-
-import com.git.luisdeveloper.wargames_tournament.entity.Tournament;
+import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.TournamentRegistrationDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.TournamentSummaryDTO;
 import com.git.luisdeveloper.wargames_tournament.exception.TournamentNotFoundException;
+import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
 
 public interface TournamentService {
-public List<Tournament> getTournaments();
-	
-	public Tournament getTournament(Long id) throws TournamentNotFoundException;
-	
-	public void createTournament(Tournament Tournament);
-	
-	public void updateTournament(Tournament Tournament) throws TournamentNotFoundException;
-	
-	public void deleteTournament(Tournament Tournament) throws TournamentNotFoundException;
+
+	public TournamentSummaryDTO getTournament(Long id) throws TournamentNotFoundException;
+
+	public TournamentSummaryDTO createTournament(TournamentRegistrationDTO tournament);
+
+	public void deleteTournament(Long id) throws TournamentNotFoundException;
+
+	public RoundDTO getCurrentRound(Long tournamentId) throws NoPendingRoundsException;
+
+	public RoundDTO generateMatches(Long tournamentId) throws TournamentNotFoundException, NoPendingRoundsException;
+
+	public void addPlayer(PlayerRegistrationDTO player) throws TournamentNotFoundException;
 }

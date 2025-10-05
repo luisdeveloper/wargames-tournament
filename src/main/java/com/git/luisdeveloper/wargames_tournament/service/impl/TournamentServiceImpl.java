@@ -1,55 +1,65 @@
 package com.git.luisdeveloper.wargames_tournament.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.TournamentRegistrationDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.TournamentSummaryDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Tournament;
 import com.git.luisdeveloper.wargames_tournament.exception.TournamentNotFoundException;
+import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
+import com.git.luisdeveloper.wargames_tournament.mappers.PlayerMapper;
+import com.git.luisdeveloper.wargames_tournament.mappers.TournamentMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.TournamentRepository;
+import com.git.luisdeveloper.wargames_tournament.service.RoundService;
 import com.git.luisdeveloper.wargames_tournament.service.TournamentService;
 
 @Service
-public class TournamentServiceImpl implements TournamentService{
+public class TournamentServiceImpl implements TournamentService {
 
 	@Autowired
-	private TournamentRepository repository;
+	private RoundService roundService;
 	
+	@Autowired
+	private TournamentRepository repository;
+
 	@Override
-	public List<Tournament> getTournaments() {
-		return repository.findAll();
+	public TournamentSummaryDTO getTournament(Long id) throws TournamentNotFoundException {
+		Tournament tournament = repository.findById(id).orElseThrow(TournamentNotFoundException::new);
+		return TournamentMapper.toTournamentSummaryDTO(tournament);
 	}
 
 	@Override
-	public Tournament getTournament(Long id) throws TournamentNotFoundException {
-		Optional<Tournament> Tournament = repository.findById(id); 
-		if(Tournament.isEmpty()) {
-			throw new TournamentNotFoundException();
-		}
-		return Tournament.get();
+	public TournamentSummaryDTO createTournament(TournamentRegistrationDTO tournamentRegistrationDTO) {
+		Tournament tournament = TournamentMapper.toEntity(tournamentRegistrationDTO);
+		tournament = repository.save(tournament);
+		return TournamentMapper.toTournamentSummaryDTO(tournament);
 	}
 
 	@Override
-	public void createTournament(Tournament Tournament) {
-		repository.save(Tournament);
+	public void deleteTournament(Long id) throws TournamentNotFoundException {
+		repository.deleteById(id);
 	}
 
 	@Override
-	public void updateTournament(Tournament Tournament) throws TournamentNotFoundException {
-		if(repository.findById(Tournament.getId()).isEmpty()) {
-			throw new TournamentNotFoundException();
-		}
-		repository.save(Tournament);
+	public RoundDTO getCurrentRound(Long tournamentId) throws NoPendingRoundsException {
+		return roundService.findFirstPendingRoundDTO(tournamentId);
 	}
 
 	@Override
-	public void deleteTournament(Tournament Tournament) throws TournamentNotFoundException {
-		if(repository.findById(Tournament.getId()).isEmpty()) {
-			throw new TournamentNotFoundException();
-		}
-		repository.delete(Tournament);
+	public RoundDTO generateMatches(Long tournamentId) throws TournamentNotFoundException, NoPendingRoundsException {
+		Tournament tournament = repository.findById(tournamentId).orElseThrow(TournamentNotFoundException::new);
+		return roundService.generateMatches(tournamentId, tournament.getCompetitors());
+	}
+
+	@Override
+	public void addPlayer(PlayerRegistrationDTO player) throws TournamentNotFoundException {
+		Tournament tournament = repository.findById(player.tournamentId())
+				.orElseThrow(TournamentNotFoundException::new);
+		tournament.getCompetitors().add(PlayerMapper.toEntity(player));
+		repository.save(tournament);
 	}
 
 }

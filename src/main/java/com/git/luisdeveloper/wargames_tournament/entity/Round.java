@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -15,8 +16,11 @@ public class Round {
 	@GeneratedValue
 	private Long id;
 	private int roundNumber;
+	
+	@ManyToOne
+	private Tournament tournament;
 
-	@OneToMany
+	@OneToMany(mappedBy="round")
 	private List<Match> matches;
 
 	private LocalDate roundDate;
@@ -42,6 +46,19 @@ public class Round {
 
 	public Round(int roundNumber, LocalDate roundDate, LocalTime beginTime, LocalTime endTime) {
 		this.roundNumber = roundNumber;
+		this.roundDate = roundDate;
+		this.beginTime = beginTime;
+		this.endTime = endTime;
+	}
+	
+	
+
+	public Round(Long id, int roundNumber,  LocalDate roundDate, LocalTime beginTime,
+			LocalTime endTime, List<Match> matches) {
+		super();
+		this.id = id;
+		this.roundNumber = roundNumber;
+		this.matches = matches;
 		this.roundDate = roundDate;
 		this.beginTime = beginTime;
 		this.endTime = endTime;
