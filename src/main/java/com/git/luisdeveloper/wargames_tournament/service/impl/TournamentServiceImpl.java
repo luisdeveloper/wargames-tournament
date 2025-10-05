@@ -16,6 +16,8 @@ import com.git.luisdeveloper.wargames_tournament.repository.TournamentRepository
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;
 import com.git.luisdeveloper.wargames_tournament.service.TournamentService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class TournamentServiceImpl implements TournamentService {
 
@@ -55,11 +57,11 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
+	@Transactional
 	public void addPlayer(PlayerRegistrationDTO player) throws TournamentNotFoundException {
 		Tournament tournament = repository.findById(player.tournamentId())
 				.orElseThrow(TournamentNotFoundException::new);
 		tournament.getCompetitors().add(PlayerMapper.toEntity(player));
-		repository.save(tournament);
 	}
 
 }

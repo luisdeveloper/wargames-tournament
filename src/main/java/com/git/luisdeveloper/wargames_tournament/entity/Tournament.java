@@ -42,7 +42,7 @@ public class Tournament {
     @Column(nullable = false)
     private double entryPrice;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "tournament_players",
         joinColumns = @JoinColumn(name = "tournament_id"),
@@ -53,10 +53,12 @@ public class Tournament {
     @OneToMany(mappedBy="tournament" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Round> rounds = new ArrayList<>();
 
-    public Tournament() {}
+    public Tournament() {
+    }
 
     public Tournament(String name, LocalDate beginDate, LocalDate endDate, String location, double entryPrize) {
-        this.name = name;
+        this();
+    	this.name = name;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.location = location;
@@ -64,12 +66,14 @@ public class Tournament {
     }
     
     public Tournament(Long id, String name, LocalDate beginDate, LocalDate endDate, String location, double prize, double entryPrize) {
-        this.name = name;
+        this();
+    	this.name = name;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.location = location;
         this.entryPrice = entryPrize;
         this.prize = prize;
+        
     }
     
     
