@@ -5,7 +5,7 @@ import java.util.List;
 import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdateRoundDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Player;
-import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
+import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
 
 public interface RoundService {
 

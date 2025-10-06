@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -26,8 +25,8 @@ import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Player;
 import com.git.luisdeveloper.wargames_tournament.entity.Round;
 import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
+import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
 import com.git.luisdeveloper.wargames_tournament.exception.RoundAlreadyStartedException;
-import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
 import com.git.luisdeveloper.wargames_tournament.repository.RoundRepository;
 
 @ExtendWith(MockitoExtension.class)

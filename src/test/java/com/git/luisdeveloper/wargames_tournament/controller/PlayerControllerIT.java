@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Player;
 import com.git.luisdeveloper.wargames_tournament.entity.Tournament;
-import com.git.luisdeveloper.wargames_tournament.mappers.PlayerMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.PlayerRepository;
 import com.git.luisdeveloper.wargames_tournament.repository.TournamentRepository;
 
@@ -68,7 +67,6 @@ public class PlayerControllerIT {
 		Tournament tournament = tournamentRepository.save(new Tournament(null, "fake tournament", LocalDate.now(), LocalDate.now().plusDays(1L), "fake location", 0, 0));
 		PlayerRegistrationDTO dto = new PlayerRegistrationDTO(tournament.getId(), "new player", "new player@player", "password");
 		String json = objectMapper.writeValueAsString(dto);
-		Player entity = PlayerMapper.toEntity(dto);
 		//when then
 		mockMvc.perform(
 				post("/players").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))

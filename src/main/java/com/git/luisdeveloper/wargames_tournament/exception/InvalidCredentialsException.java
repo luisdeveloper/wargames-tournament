@@ -1,4 +1,4 @@
-package com.git.luisdeveloper.wargames_tournament.exceptions;
+package com.git.luisdeveloper.wargames_tournament.exception;
 
 public class InvalidCredentialsException extends Exception {
 

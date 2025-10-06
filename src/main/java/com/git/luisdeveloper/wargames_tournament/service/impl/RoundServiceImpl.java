@@ -15,7 +15,7 @@ import com.git.luisdeveloper.wargames_tournament.entity.Match;
 import com.git.luisdeveloper.wargames_tournament.entity.Player;
 import com.git.luisdeveloper.wargames_tournament.entity.Round;
 import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
-import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
+import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
 import com.git.luisdeveloper.wargames_tournament.mappers.RoundMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.RoundRepository;
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;

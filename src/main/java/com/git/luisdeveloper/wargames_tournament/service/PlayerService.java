@@ -5,8 +5,8 @@ import java.util.List;
 import com.git.luisdeveloper.wargames_tournament.dto.PlayerRankingDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePasswordDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePersonalDataDTO;
+import com.git.luisdeveloper.wargames_tournament.exception.InvalidCredentialsException;
 import com.git.luisdeveloper.wargames_tournament.exception.PlayerNotFoundException;
-import com.git.luisdeveloper.wargames_tournament.exceptions.InvalidCredentialsException;
 
 public interface PlayerService {
 	List<PlayerRankingDTO> getPlayers();

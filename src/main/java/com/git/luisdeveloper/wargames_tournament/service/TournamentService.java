@@ -4,8 +4,8 @@ import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.TournamentRegistrationDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.TournamentSummaryDTO;
+import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
 import com.git.luisdeveloper.wargames_tournament.exception.TournamentNotFoundException;
-import com.git.luisdeveloper.wargames_tournament.exceptions.NoPendingRoundsException;
 
 public interface TournamentService {
 
