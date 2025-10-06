@@ -47,6 +47,7 @@ public class PlayerControllerIT {
 
 	@BeforeEach
 	public void init() {
+		tournamentRepository.deleteAll();
 		repository.deleteAll();
 		repository.saveAll(List.of(new Player("name 1", "name1@name.com", "1234"),
 				new Player("name 2", "name2@name.com", "1234")));
