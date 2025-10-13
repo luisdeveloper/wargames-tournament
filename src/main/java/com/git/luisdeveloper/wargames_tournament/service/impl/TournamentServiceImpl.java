@@ -34,6 +34,7 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
+	@Transactional
 	public TournamentSummaryDTO createTournament(TournamentRegistrationDTO tournamentRegistrationDTO) {
 		Tournament tournament = TournamentMapper.toEntity(tournamentRegistrationDTO);
 		tournament = repository.save(tournament);
@@ -51,9 +52,15 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
+	@Transactional
 	public RoundDTO generateMatches(Long tournamentId) throws TournamentNotFoundException, NoPendingRoundsException {
 		Tournament tournament = repository.findById(tournamentId).orElseThrow(TournamentNotFoundException::new);
+		loadPlayers(tournament);
 		return roundService.generateMatches(tournamentId, tournament.getCompetitors());
+	}
+
+	private void loadPlayers(Tournament tournament) {
+		tournament.getCompetitors().size();
 	}
 
 	@Override

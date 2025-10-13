@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.git.luisdeveloper.wargames_tournament.dto.PlayerRankingDTO;
@@ -22,7 +23,7 @@ public class MatchController {
 	private PlayerService playerService;
 	
 	@PutMapping("/matches/results")
-	public ResponseEntity<List<PlayerRankingDTO>> solveMatches(List<UpdateMatchDTO> matches){
+	public ResponseEntity<List<PlayerRankingDTO>> solveMatches(@RequestBody List<UpdateMatchDTO> matches){
 		service.solveMatches(matches);
 		List<PlayerRankingDTO> ranking = playerService.getRanking();
 		return ResponseEntity.ofNullable(ranking);

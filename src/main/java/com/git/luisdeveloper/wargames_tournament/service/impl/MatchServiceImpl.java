@@ -28,8 +28,9 @@ public class MatchServiceImpl implements MatchService, MatchInternalService {
 	private PlayerService playerService;
 
 	@Override
+	@Transactional
 	public void solveMatches(List<UpdateMatchDTO> matches) {
-		matches.parallelStream().forEach(x -> solveMatch(x));
+		matches.stream().forEach(x -> solveMatch(x));
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public class MatchServiceImpl implements MatchService, MatchInternalService {
 	}
 
 	@Override
+	@Transactional
 	public void solveMatch(Long matchId, Long player1Id, Long player2Id, MatchResult result) {
 		repository.updateMatchResult(matchId, result);
 		switch (result) {

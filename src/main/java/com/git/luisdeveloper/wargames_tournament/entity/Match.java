@@ -89,5 +89,9 @@ public class Match {
 	public void setResult(MatchResult result) {
 		this.result = result;
 	}
+	
+	public void setRound(Round r) {
+		this.round = r;
+	}
 
 }

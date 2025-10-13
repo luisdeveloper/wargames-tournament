@@ -14,6 +14,8 @@ import com.git.luisdeveloper.wargames_tournament.mappers.PlayerMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.PlayerRepository;
 import com.git.luisdeveloper.wargames_tournament.service.PlayerService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
@@ -21,6 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
 	private PlayerRepository repository;
 
 	@Override
+	@Transactional
 	public void updatePlayer(UpdatePersonalDataDTO player) throws PlayerNotFoundException {
 		int updatedEntries = repository.updatePersonalData(player.playerId(), player.name(), player.email());
 		if (updatedEntries == 0)
@@ -29,6 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	@Override
+	@Transactional
 	public void updatePlayer(UpdatePasswordDTO dto) throws InvalidCredentialsException {
 		int updatedEntries = repository.updatePassword(dto.playerId(), dto.oldPassword(), dto.newPassword());
 		if (updatedEntries == 0)

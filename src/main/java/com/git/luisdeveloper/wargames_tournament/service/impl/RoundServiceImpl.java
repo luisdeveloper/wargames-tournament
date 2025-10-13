@@ -41,6 +41,7 @@ public class RoundServiceImpl implements RoundService {
 	}
 
 	@Override
+	@Transactional
 	public void updateDates(UpdateRoundDTO dto) {
 		repository.updateDates(dto.roundId(), dto.roundDate(), dto.beginTime(), dto.endTime());
 	}
@@ -76,9 +77,15 @@ public class RoundServiceImpl implements RoundService {
 	}
 
 	@Override
+	@Transactional
 	public RoundDTO findFirstPendingRoundDTO(Long tournamentId) throws NoPendingRoundsException {
 		Round round = findFirstPendingRound(tournamentId);
+		loadMatches(round);
 		return RoundMapper.toDto(round);
+	}
+
+	private void loadMatches(Round round) {
+		round.getMatches().size();
 	}
 	
 	private Round findFirstPendingRound(Long tournamentId) throws NoPendingRoundsException {

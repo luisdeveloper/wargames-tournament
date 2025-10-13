@@ -20,6 +20,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 	int updatePassword(@Param("id") Long id, @Param("oldPassword") String oldPassword,
 			@Param("newPassword") String newPassword);
 	
+	@Modifying
 	@Query("UPDATE Player p SET p.fullName = :name , p.email= :email WHERE p.id = :id")
 	int updatePersonalData(@Param("id") Long id, @Param("name") String name,
 			@Param("email") String email);

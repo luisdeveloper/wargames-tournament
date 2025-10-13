@@ -2,15 +2,19 @@ package com.git.luisdeveloper.wargames_tournament.controller;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.UpdatePasswordDTO;
+import com.git.luisdeveloper.wargames_tournament.dto.UpdatePersonalDataDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Player;
 import com.git.luisdeveloper.wargames_tournament.entity.Tournament;
 import com.git.luisdeveloper.wargames_tournament.repository.PlayerRepository;
@@ -40,17 +46,29 @@ public class PlayerControllerIT {
 
 	@Autowired
 	private PlayerRepository repository;
-	
+
 	@Autowired
 	private TournamentRepository tournamentRepository;
 
+	private Player samplePlayer1;
+
+	private Tournament sampleTournament;
+
 	@BeforeEach
-	public void init() {
+	void init() {
+
+		sampleTournament = tournamentRepository.save(new Tournament(null, "fake tournament", LocalDate.now(),
+				LocalDate.now().plusDays(1L), "fake location", 0, 0));
+		samplePlayer1 = new Player("name 1", "name1@name.com", "1234");
+		repository.save(samplePlayer1);
+		repository.saveAll(List.of(new Player("name 2", "name2@name.com", "1234")));
+		repository.flush();
+	}
+
+	@AfterEach
+	void clean() {
 		tournamentRepository.deleteAll();
 		repository.deleteAll();
-		repository.saveAll(List.of(new Player("name 1", "name1@name.com", "1234"),
-				new Player("name 2", "name2@name.com", "1234")));
-		repository.flush();
 	}
 
 	@Test
@@ -63,16 +81,53 @@ public class PlayerControllerIT {
 
 	@Test
 	void given_valid_PlayerRegistrationDTO_whenCalling_insertPlayer_return_message_created() throws Exception {
-		//given
-		Tournament tournament = tournamentRepository.save(new Tournament(null, "fake tournament", LocalDate.now(), LocalDate.now().plusDays(1L), "fake location", 0, 0));
-		PlayerRegistrationDTO dto = new PlayerRegistrationDTO(tournament.getId(), "new player", "new player@player", "password");
+		// given
+
+		PlayerRegistrationDTO dto = new PlayerRegistrationDTO(sampleTournament.getId(), "new player",
+				"new player@player", "password");
 		String json = objectMapper.writeValueAsString(dto);
-		//when then
-		mockMvc.perform(
-				post("/players").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated())
+		// when then
+		mockMvc.perform(post("/players").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("Player succesfully created"));
+	}
+
+	@Test
+	void given_valid_UpdatePersonalDataDTO_whenCalling_updatePlayerPersonalData_then_return_message_update_ok()
+			throws Exception {
+		// given
+		UpdatePersonalDataDTO dto = new UpdatePersonalDataDTO(samplePlayer1.getId(), samplePlayer1.getFullName() + "a",
+				"new@email");
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/players/personal-data").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("Player succesfully updated"));
+	}
+
+	@Test
+	void given_valid_UpdatePasswordDTO_when_calling_updatePlayerPassword_then_return_message_update_ok()
+			throws Exception {
+		// given
+		UpdatePasswordDTO dto = new UpdatePasswordDTO(samplePlayer1.getId(), samplePlayer1.getPassword(), "xxxx");
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/players/password").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("Player succesfully updated"));
+	}
+
+	@Test
+	void given_valid_playerId_when_calling_deletePlayer_then_return_message_delete_ok() throws Exception {
+		// given
+		Long validPlayerId = samplePlayer1.getId();
+		// when then
+		mockMvc.perform(delete("/players/" + validPlayerId).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("Player succesfully deleted"));
 	}
 
 }

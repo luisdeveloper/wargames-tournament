@@ -150,4 +150,9 @@ public class Tournament {
     public void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }
+    
+    public void addRound(Round round) {
+    	this.rounds.add(round);
+    	round.setTournament(this);
+    }
 }
