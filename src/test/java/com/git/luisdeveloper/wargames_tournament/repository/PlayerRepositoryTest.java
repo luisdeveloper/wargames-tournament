@@ -67,7 +67,7 @@ public class PlayerRepositoryTest {
 	}
 
 	@Test
-	void given_player_stored_in_db_when_delete_then_returns_player_updated() {
+	void given_player_stored_in_db_when_delete_then_player_is_no_longer_in_db() {
 		// given
 		Player p = new Player("name", "email", "");
 		p = repository.save(p);
