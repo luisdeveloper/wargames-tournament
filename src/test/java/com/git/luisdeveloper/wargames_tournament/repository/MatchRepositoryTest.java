@@ -123,6 +123,22 @@ public class MatchRepositoryTest {
 	}
 	
 	@Test
+	void given_invalid_matchId_and_matchResult_when_updateMatchResult_then_return_0() {
+		// given
+		Match m = repository.save(new Match(player,player));
+		
+		Long invalidMatchId = m.getId() + 10L;
+
+		MatchResult newMatchResult = MatchResult.PLAYER_1_VICTORY;
+		// when
+		int result = repository.updateMatchResult(invalidMatchId, newMatchResult);
+		entityManager.clear();
+
+		// then
+		assertEquals(0, result);
+	}
+	
+	@Test
 	void given_list_of_2_valid_matchIds_and_matchResult_when_updateMatchResults_then_return_2_and_matches_are_updated() {
 		// given
 		Match m = repository.save( new Match(player, player2));
@@ -141,5 +157,18 @@ public class MatchRepositoryTest {
 		assertTrue(matchResult2.isPresent());
 		assertEquals(newMatchResult, matchResult.get().getResult());
 		assertEquals(newMatchResult, matchResult2.get().getResult());
+	}
+	
+	@Test
+	void given_list_of_invalid_matchIds_and_matchResult_when_updateMatchResults_then_return_2_and_matches_are_updated() {
+		// given
+		Match m = repository.save( new Match(player, player2));
+		MatchResult newMatchResult = MatchResult.PLAYER_1_VICTORY;
+		// when
+		long invalidMatchId = m.getId()+ 100L;
+		int result = repository.updateMatchResults(List.of( invalidMatchId), newMatchResult);
+		entityManager.clear();
+		// then
+		assertEquals(0, result);
 	}
 }
