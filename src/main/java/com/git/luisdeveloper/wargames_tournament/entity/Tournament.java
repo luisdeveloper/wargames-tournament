@@ -65,15 +65,10 @@ public class Tournament {
         this.entryPrice = entryPrize;
     }
     
-    public Tournament(Long id, String name, LocalDate beginDate, LocalDate endDate, String location, double prize, double entryPrize) {
-        this();
-    	this.name = name;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.entryPrice = entryPrize;
+    public Tournament(Long id, String name, LocalDate beginDate, LocalDate endDate, String location, double prize, double entryPrice) {
+        this(name,beginDate,endDate,location,entryPrice);
+        this.id = id;
         this.prize = prize;
-        
     }
     
     
