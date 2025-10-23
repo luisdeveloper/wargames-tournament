@@ -23,7 +23,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Autowired
 	private RoundService roundService;
-	
+
 	@Autowired
 	private TournamentRepository repository;
 
@@ -43,7 +43,10 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public void deleteTournament(Long id) throws TournamentNotFoundException {
-		repository.deleteById(id);
+		if (repository.existsById(id))
+			repository.deleteById(id);
+		else
+			throw new TournamentNotFoundException();
 	}
 
 	@Override

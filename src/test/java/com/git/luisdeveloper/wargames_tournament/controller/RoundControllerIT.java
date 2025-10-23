@@ -76,6 +76,14 @@ public class RoundControllerIT {
 				.andExpect(jsonPath("$.length()", is(2))).andExpect(jsonPath("$[*].matchId").isNotEmpty())
 				.andExpect(jsonPath("$[0].player1").isNotEmpty()).andExpect(jsonPath("$[0].player2").isNotEmpty());
 	}
+	
+	@Test
+	void given_invalid_roundId_with_matches_when_calling_getMatches_then_return_status_not_found() throws Exception {
+
+		Long invalidRoundId = sampleRound.getId() + 10L;
+		mockMvc.perform(get("/rounds/" + invalidRoundId + "/matches").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+	}
 
 	@Test
 	void given_valid_UpdateRoundDTO_when_calling_updateRoundDates_then_return_response_no_content() throws Exception {
@@ -87,6 +95,18 @@ public class RoundControllerIT {
 		mockMvc.perform(patch("/rounds/" + dto.roundId()).contentType(MediaType.APPLICATION_JSON).content(json)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 	}
+	
+	@Test
+	void given_UpdateRoundDTO_with_invalid_roundId_when_calling_updateRoundDates_then_return_response_notFound() throws Exception {
+		// given
+		Long invalidRoundId = sampleRound.getId() + 10L;
+		UpdateRoundDTO dto = new UpdateRoundDTO(invalidRoundId, LocalDate.now().plusDays(2L),
+				LocalTime.now().plusHours(3L), LocalTime.now().plusHours(6L));
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/rounds/" + dto.roundId()).contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
+	}
 
 	@Test
 	void given_valid_roundId_when_calling_delete_then_return_response_no_content() throws Exception {
@@ -95,6 +115,15 @@ public class RoundControllerIT {
 		// when then
 		mockMvc.perform(delete("/rounds/" + validRoundId).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
+	}
+	
+	@Test
+	void given_invalid_roundId_when_calling_delete_then_return_response_notFound() throws Exception {
+		// given
+		Long invalidRoundId = sampleRound.getId() + 10L;
+		// when then
+		mockMvc.perform(delete("/rounds/" + invalidRoundId).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
 	}
 
 }
