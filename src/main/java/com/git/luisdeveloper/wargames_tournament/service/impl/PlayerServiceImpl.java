@@ -33,7 +33,10 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	@Transactional
-	public void updatePlayer(UpdatePasswordDTO dto) throws InvalidCredentialsException {
+	public void updatePlayer(UpdatePasswordDTO dto) throws InvalidCredentialsException, PlayerNotFoundException {
+		if (!repository.existsById(dto.playerId())) {
+			throw new PlayerNotFoundException();
+		}
 		int updatedEntries = repository.updatePassword(dto.playerId(), dto.oldPassword(), dto.newPassword());
 		if (updatedEntries == 0)
 			throw new InvalidCredentialsException();
@@ -57,7 +60,10 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public void deletePlayer(Long id) throws PlayerNotFoundException {
-		repository.deleteById(id);
+		if (repository.existsById(id))
+			repository.deleteById(id);
+		else
+			throw new PlayerNotFoundException();
 	}
 
 }

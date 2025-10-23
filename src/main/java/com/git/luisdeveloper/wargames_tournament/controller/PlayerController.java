@@ -58,7 +58,7 @@ public class PlayerController {
 	}
 	
 	@PatchMapping("/players/password")
-	public ResponseEntity<String> updatePlayerPassword(@RequestBody UpdatePasswordDTO player) throws InvalidCredentialsException {
+	public ResponseEntity<String> updatePlayerPassword(@RequestBody UpdatePasswordDTO player) throws InvalidCredentialsException, PlayerNotFoundException {
 		service.updatePlayer(player);
 		return ResponseEntity.status(HttpStatus.OK).body(PLAYER_SUCCESFULLY_UPDATED);
 	}

@@ -16,6 +16,11 @@ public class ExceptionsHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public ResponseEntity<Player> handleInvalidCredentialsException(){
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+	
 	@ExceptionHandler(TournamentNotFoundException.class)
 	public ResponseEntity<Player> handleTournamentNotFoundException(){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
