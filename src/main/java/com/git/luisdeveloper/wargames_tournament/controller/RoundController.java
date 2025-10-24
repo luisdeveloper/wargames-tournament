@@ -13,31 +13,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.git.luisdeveloper.wargames_tournament.dto.MatchDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdateRoundDTO;
-import com.git.luisdeveloper.wargames_tournament.service.MatchService;
+import com.git.luisdeveloper.wargames_tournament.exception.RoundNotFoundException;
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;
 
 @RestController
 public class RoundController {
 
 	@Autowired
-	private MatchService matchService;
-	
-	@Autowired
 	private RoundService service;
 	
 	@GetMapping("/rounds/{roundId}/matches")
-	public ResponseEntity<List<MatchDTO>> getMatches(@PathVariable Long roundId){
-		return ResponseEntity.ofNullable(matchService.getMatches(roundId));
+	public ResponseEntity<List<MatchDTO>> getMatches(@PathVariable Long roundId) throws RoundNotFoundException{
+		return ResponseEntity.ofNullable(service.getMatches(roundId));
 	}
 	
 	@PatchMapping("/rounds/{id}")
-	public ResponseEntity<?> updateRoundDates(@RequestBody UpdateRoundDTO dto){
+	public ResponseEntity<?> updateRoundDates(@RequestBody UpdateRoundDTO dto) throws RoundNotFoundException{
 		service.updateDates(dto);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/rounds/{id}")
-	public ResponseEntity<?> deleteRound(@PathVariable Long id){
+	public ResponseEntity<?> deleteRound(@PathVariable Long id) throws RoundNotFoundException{
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

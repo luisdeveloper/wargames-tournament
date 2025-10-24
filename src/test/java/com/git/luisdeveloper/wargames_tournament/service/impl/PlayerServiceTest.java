@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePasswordDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePersonalDataDTO;
-import com.git.luisdeveloper.wargames_tournament.exception.InvalidCredentialsException;
 import com.git.luisdeveloper.wargames_tournament.exception.PlayerNotFoundException;
 import com.git.luisdeveloper.wargames_tournament.mappers.PlayerMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.PlayerRepository;
@@ -52,10 +51,9 @@ public class PlayerServiceTest {
 		//given
 		Long nonExistentId = -1L;
 		UpdatePasswordDTO personalData = new UpdatePasswordDTO(nonExistentId, "name", "email");
-		when(repository.updatePassword(eq(nonExistentId), anyString(), anyString())).thenReturn(0);
 		
 		//when //then
-		assertThrows(InvalidCredentialsException.class, ()-> service.updatePlayer(personalData));
+		assertThrows(PlayerNotFoundException.class, ()-> service.updatePlayer(personalData));
 		
 	}
 	

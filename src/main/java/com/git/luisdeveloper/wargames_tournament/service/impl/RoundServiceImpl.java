@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.git.luisdeveloper.wargames_tournament.dto.MatchDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.RoundDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdateRoundDTO;
 import com.git.luisdeveloper.wargames_tournament.entity.Match;
@@ -16,6 +17,7 @@ import com.git.luisdeveloper.wargames_tournament.entity.Player;
 import com.git.luisdeveloper.wargames_tournament.entity.Round;
 import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
 import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
+import com.git.luisdeveloper.wargames_tournament.exception.RoundNotFoundException;
 import com.git.luisdeveloper.wargames_tournament.mappers.RoundMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.RoundRepository;
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;
@@ -32,8 +34,11 @@ public class RoundServiceImpl implements RoundService {
 	private MatchInternalService matchInternalService;
 
 	@Override
-	public void delete(Long id) {
-		repository.deleteById(id);
+	public void delete(Long id) throws RoundNotFoundException {
+		if (repository.existsById(id))
+			repository.deleteById(id);
+		else
+			throw new RoundNotFoundException();
 	}
 
 	public RoundServiceImpl() {
@@ -42,8 +47,10 @@ public class RoundServiceImpl implements RoundService {
 
 	@Override
 	@Transactional
-	public void updateDates(UpdateRoundDTO dto) {
-		repository.updateDates(dto.roundId(), dto.roundDate(), dto.beginTime(), dto.endTime());
+	public void updateDates(UpdateRoundDTO dto) throws RoundNotFoundException {
+		int roundsUpdated = repository.updateDates(dto.roundId(), dto.roundDate(), dto.beginTime(), dto.endTime());
+		if (roundsUpdated == 0)
+			throw new RoundNotFoundException();
 	}
 
 	@Override
@@ -64,7 +71,7 @@ public class RoundServiceImpl implements RoundService {
 								solveByeMatch(a.get(a.size() - 1), l);
 							return l;
 						}));
-		
+
 		round.getMatches().addAll(newMatches);
 		round = repository.save(round);
 		return RoundMapper.toDto(round);
@@ -87,9 +94,16 @@ public class RoundServiceImpl implements RoundService {
 	private void loadMatches(Round round) {
 		round.getMatches().size();
 	}
-	
+
 	private Round findFirstPendingRound(Long tournamentId) throws NoPendingRoundsException {
 		return repository.findFirstPendingRound(tournamentId).orElseThrow(NoPendingRoundsException::new);
+	}
+
+	@Override
+	public List<MatchDTO> getMatches(Long roundId) throws RoundNotFoundException {
+		if (repository.existsById(roundId))
+			return matchInternalService.getMatches(roundId);
+		throw new RoundNotFoundException();
 	}
 
 }

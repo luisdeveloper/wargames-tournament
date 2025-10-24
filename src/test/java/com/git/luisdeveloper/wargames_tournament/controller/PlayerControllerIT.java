@@ -82,7 +82,6 @@ public class PlayerControllerIT {
 	@Test
 	void given_valid_PlayerRegistrationDTO_whenCalling_insertPlayer_return_message_created() throws Exception {
 		// given
-
 		PlayerRegistrationDTO dto = new PlayerRegistrationDTO(sampleTournament.getId(), "new player",
 				"new player@player", "password");
 		String json = objectMapper.writeValueAsString(dto);
@@ -92,7 +91,7 @@ public class PlayerControllerIT {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("Player succesfully created"));
 	}
-
+	
 	@Test
 	void given_valid_UpdatePersonalDataDTO_whenCalling_updatePlayerPersonalData_then_return_message_update_ok()
 			throws Exception {
@@ -105,6 +104,19 @@ public class PlayerControllerIT {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("Player succesfully updated"));
+	}
+	
+	@Test
+	void given_valid_UpdatePersonalDataDTO_with_invalid_id_whenCalling_updatePlayerPersonalData_then_return_status_not_found()
+			throws Exception {
+		// given
+		Long invalidId = samplePlayer1.getId() + 10L;
+		UpdatePersonalDataDTO dto = new UpdatePersonalDataDTO(invalidId, samplePlayer1.getFullName() + "a",
+				"new@email");
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/players/personal-data").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -119,6 +131,30 @@ public class PlayerControllerIT {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("Player succesfully updated"));
 	}
+	
+	@Test
+	void given_valid_UpdatePasswordDTO_with_invalid_id_when_calling_updatePlayerPassword_then_return_status_not_found()
+			throws Exception {
+		// given
+		Long invalidId = samplePlayer1.getId() + 10L;
+		UpdatePasswordDTO dto = new UpdatePasswordDTO(invalidId, samplePlayer1.getPassword(), "xxxx");
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/players/password").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
+	}
+	
+	@Test
+	void given_UpdatePasswordDTO_with_invalid_oldPassword_when_calling_updatePlayerPassword_then_return_status_unauthorized()
+			throws Exception {
+		// given
+		String invalidOldPassword = samplePlayer1.getPassword() + "xx";
+		UpdatePasswordDTO dto = new UpdatePasswordDTO(samplePlayer1.getId(), invalidOldPassword, "xxxx");
+		String json = objectMapper.writeValueAsString(dto);
+		// when then
+		mockMvc.perform(patch("/players/password").contentType(MediaType.APPLICATION_JSON).content(json)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isUnauthorized());
+	}
 
 	@Test
 	void given_valid_playerId_when_calling_deletePlayer_then_return_message_delete_ok() throws Exception {
@@ -128,6 +164,15 @@ public class PlayerControllerIT {
 		mockMvc.perform(delete("/players/" + validPlayerId).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("Player succesfully deleted"));
+	}
+	
+	@Test
+	void given_invalid_playerId_when_calling_deletePlayer_then_return_status_not_found() throws Exception {
+		// given
+		Long invalidPlayerId = samplePlayer1.getId() + 10L;
+		// when then
+		mockMvc.perform(delete("/players/" + invalidPlayerId).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
 	}
 
 }
