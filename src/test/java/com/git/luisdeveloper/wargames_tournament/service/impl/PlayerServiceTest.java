@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePasswordDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdatePersonalDataDTO;
 import com.git.luisdeveloper.wargames_tournament.exception.PlayerNotFoundException;
+import com.git.luisdeveloper.wargames_tournament.logging.ServiceLogFormatter;
 import com.git.luisdeveloper.wargames_tournament.mappers.PlayerMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.PlayerRepository;
 import com.git.luisdeveloper.wargames_tournament.service.TournamentService;
@@ -27,6 +28,9 @@ public class PlayerServiceTest {
 
 	@Mock
 	private TournamentService tournamentService;
+	
+	@Mock
+	private ServiceLogFormatter formatter;
 
 	@Mock
 	private PlayerMapper mapper;

@@ -1,11 +1,5 @@
 package com.git.luisdeveloper.wargames_tournament.controller;
 
-import static com.git.luisdeveloper.wargames_tournament.logging.LogMessages.HTTP_DELETE;
-import static com.git.luisdeveloper.wargames_tournament.logging.LogMessages.HTTP_GET;
-import static com.git.luisdeveloper.wargames_tournament.logging.LogMessages.HTTP_PATCH;
-import static com.git.luisdeveloper.wargames_tournament.logging.LogMessages.LEVEL_REQUEST;
-import static com.git.luisdeveloper.wargames_tournament.logging.LogMessages.LEVEL_SUCCESS;
-
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,10 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.git.luisdeveloper.wargames_tournament.dto.MatchDTO;
 import com.git.luisdeveloper.wargames_tournament.dto.UpdateRoundDTO;
 import com.git.luisdeveloper.wargames_tournament.exception.RoundNotFoundException;
+import com.git.luisdeveloper.wargames_tournament.logging.ControllerLogFormatter;
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;
 
 @RestController
 public class RoundController {
+
+	@Autowired
+	private ControllerLogFormatter formatter;
 
 	private static Logger logger = Logger.getLogger(RoundController.class.getName());
 
@@ -33,28 +31,25 @@ public class RoundController {
 
 	@GetMapping("/rounds/{roundId}/matches")
 	public ResponseEntity<List<MatchDTO>> getMatches(@PathVariable Long roundId) throws RoundNotFoundException {
-		logger.info(() -> LEVEL_REQUEST + HTTP_GET + "/rounds/"+roundId+"/matches" + "- getting matches");
+		logger.info(formatter.request("Getting matches"));
 		final ResponseEntity<List<MatchDTO>> response = ResponseEntity.ofNullable(service.getMatches(roundId));
-		logger.info(() -> LEVEL_SUCCESS + HTTP_GET + "/rounds/"+roundId+"/matches" + " - getting matches");
+		logger.info(formatter.success("Getting matches"));
 		return response;
 	}
 
 	@PatchMapping("/rounds/{id}")
 	public ResponseEntity<?> updateRoundDates(@RequestBody UpdateRoundDTO dto) throws RoundNotFoundException {
-		logger.info(() -> LEVEL_REQUEST + HTTP_PATCH + "/rounds/"+dto.roundId() + "- updating round dates");
+		logger.info(formatter.request("Updating round dates"));
 		service.updateDates(dto);
-		logger.info(() -> LEVEL_SUCCESS + HTTP_PATCH + "/rounds/"+dto.roundId() + " - updating round dates");
-		
+		logger.info(formatter.success("Updating round dates"));
 		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/rounds/{id}")
 	public ResponseEntity<?> deleteRound(@PathVariable Long id) throws RoundNotFoundException {
-		logger.info(() -> LEVEL_REQUEST + HTTP_DELETE + "/rounds/"+id + "- deleting round");
+		logger.info(formatter.request("Deleting round"));
 		service.delete(id);
-		logger.info(() -> LEVEL_SUCCESS + HTTP_DELETE + "/rounds/"+id + " - deleting round");
-		
-		
+		logger.info(formatter.success("Deleting round"));
 		return ResponseEntity.noContent().build();
 	}
 }
