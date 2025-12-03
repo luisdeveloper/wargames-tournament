@@ -15,8 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import com.git.luisdeveloper.wargames_tournament.entity.Round;
 import com.git.luisdeveloper.wargames_tournament.entity.Tournament;
 
-import jakarta.persistence.EntityManager;
-
 @DataJpaTest
 @ActiveProfiles("test")
 public class TournamentRepositoryTest {
