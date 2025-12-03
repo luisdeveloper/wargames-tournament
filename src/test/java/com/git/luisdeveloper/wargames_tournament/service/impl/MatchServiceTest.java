@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.git.luisdeveloper.wargames_tournament.dto.UpdateMatchDTO;
 import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
+import com.git.luisdeveloper.wargames_tournament.logging.ServiceLogFormatter;
 import com.git.luisdeveloper.wargames_tournament.mappers.MatchMapper;
 import com.git.luisdeveloper.wargames_tournament.repository.MatchRepository;
 import com.git.luisdeveloper.wargames_tournament.service.PlayerService;
@@ -25,6 +26,9 @@ public class MatchServiceTest {
 
 	@Mock
 	private MatchMapper mapper;
+	
+	@Mock 
+	private ServiceLogFormatter formatter;
 
 	@InjectMocks
 	private MatchServiceImpl service;
