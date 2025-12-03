@@ -50,5 +50,11 @@ public class ExceptionsHandler {
 		logger.warning(formatter.error("RoundNotFoundException: Round could not be found"));
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
+	
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<?> handleRuntimeException(RuntimeException ex) {
+		logger.severe(formatter.error("RuntimeException: " + ex.getMessage()));
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
 
 }
