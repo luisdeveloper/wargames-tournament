@@ -1,5 +1,5 @@
 ### Flujo de ramas
-- `main`: rama estable y desplegable.
+- `master`: rama estable y desplegable.
 - `develop`: rama de integración (opcional).
 - `feature/<nombre>`: nuevas funcionalidades.
 - `fix/<nombre>`: correcciones de errores.
