@@ -6,6 +6,7 @@
 |GET|/tournaments/{id}/current-round|Retrieves the next round with no generated matches, from the *Tournament* whose id is received as parameter|
 |POST|/tournaments|Adds a new *Tournament* to the database|
 |POST|/tournaments/{tournamentId}/current-round/matches|Generates matches for the next *Round* with no generated matches|
+<br/>
 
 # **RoundController**
 
@@ -14,12 +15,16 @@
 |GET|/rounds/{roundId}/matches|Retrieves matches assigned to *Round* whose id is "roundId"|
 |PATCH|/rounds/{id}|Updates the properties beginDate and endDate from the *Round* whose id is "id"|
 |DELETE|/rounds/{id}|Deletes the *Round* whose id is "id"|
+<br/>
+
 
 # **MatchController**
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 |PUT|/matches/results|Updates the results from one to multiple *matches*|
+<br/>
+
 
 # **PlayerController**
 
