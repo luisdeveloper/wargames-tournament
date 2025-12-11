@@ -5,4 +5,5 @@ Built with Spring Boot, JPA, and Maven, it includes authentication, RESTful APIs
 Inspired by CRM principles, it provides a structured way to handle relationships between participants, scoring, and competition rounds — scalable to any two-player game such as wargames, chess, tennis, or even football teams.
 
 💡 Includes unit and integration testing, and logging with Java Logger
+
 💡 Ready for Angular front-end integration and future extensions with NoSQL (MongoDB).
