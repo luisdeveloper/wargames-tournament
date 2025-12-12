@@ -30,7 +30,6 @@ public class PlayerController {
 
 	private static final String PLAYER_SUCCESFULLY_CREATED = "Player succesfully created";
 	private static final String PLAYER_SUCCESFULLY_UPDATED = "Player succesfully updated";
-	private static final String PLAYER_SUCCESFULLY_DELETED = "Player succesfully deleted";
 
 	@Autowired
 	private PlayerService service;
@@ -84,6 +83,6 @@ public class PlayerController {
 		logger.info(formatter.request("Deleting Player with id: " + id));
 		service.deletePlayer(id);
 		logger.info(formatter.success("Deleting Player with id: " + id));
-		return ResponseEntity.status(HttpStatus.OK).body(PLAYER_SUCCESFULLY_DELETED);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

@@ -23,7 +23,6 @@ import com.git.luisdeveloper.wargames_tournament.service.TournamentService;
 
 @RestController
 public class TournamentController {
-	private static final String TOURNAMENT_SUCCESFULLY_DELETED = "Tournament succesfully deleted";
 
 	@Autowired
 	private TournamentService service;
@@ -73,6 +72,6 @@ public class TournamentController {
 		logger.info(formatter.request("Deleting tournament"));
 		service.deleteTournament(id);
 		logger.info(formatter.success("Deleting tournament"));
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(TOURNAMENT_SUCCESFULLY_DELETED);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

@@ -7,3 +7,8 @@ Inspired by CRM principles, it provides a structured way to handle relationships
 💡 Includes unit and integration testing, and logging with Java Logger
 
 💡 Ready for Angular front-end integration and future extensions with NoSQL (MongoDB).
+
+<br/>
+
+## Available endpoints
+[Available Endpoints](docs/API-ENDPOINTS.md)
