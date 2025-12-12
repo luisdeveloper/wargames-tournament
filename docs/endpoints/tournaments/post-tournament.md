@@ -4,7 +4,7 @@
 Inserts a new *Tournament* on the database
 
 **Endpoint**
-- Method: `GET`
+- Method: `POST`
 - URI: `/tournaments`
 - Content-Type: `application/json`
 

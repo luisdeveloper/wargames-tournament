@@ -162,8 +162,7 @@ public class PlayerControllerIT {
 		Long validPlayerId = samplePlayer1.getId();
 		// when then
 		mockMvc.perform(delete("/players/" + validPlayerId).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(content().string("Player succesfully deleted"));
+				.andExpect(status().isNoContent());
 	}
 	
 	@Test

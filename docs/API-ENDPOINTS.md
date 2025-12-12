@@ -32,10 +32,10 @@
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-|GET|/players/ranking|Retrieves the list of *players*, ordered by their current points, in descending order|
-|POST|/players|Adds a new *Player* to the database|
-|PATCH|/players/personal-data|Updates the personal data from the *Player* received in the RequestBody|
-|PATCH|/players/password|Updates the password from the *Player* received in the RequestBody|
-|DELETE|/players/{id}|Deletes the *Player* whose id is "id"|
+|GET|[/players/ranking](endpoints/players/get-ranking.md)|Retrieves the list of *players*, ordered by their current points, in descending order|
+|POST|[/players](endpoints/players/post-player.md)|Adds a new *Player* to the database|
+|PATCH|[/players/personal-data](endpoints/players/patch-personal-data.md)|Updates the personal data from the *Player* received in the RequestBody|
+|PATCH|[/players/password](endpoints/players/patch-password.md)|Updates the password from the *Player* received in the RequestBody|
+|DELETE|[/players/{id}](endpoints/players/delete-player.md)|Deletes the *Player* whose id is "id"|
 
 
