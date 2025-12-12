@@ -14,9 +14,9 @@
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-|GET|/rounds/{roundId}/matches|Retrieves matches assigned to *Round* whose id is "roundId"|
-|PATCH|/rounds/{id}|Updates the properties beginDate and endDate from the *Round* whose id is "id"|
-|DELETE|/rounds/{id}|Deletes the *Round* whose id is "id"|
+|GET|[/rounds/{roundId}/matches](endpoints/rounds/get-matches.md)|Retrieves the matches assigned to the *Round* with the specified ID.|
+|PATCH|[/rounds/{id}](endpoints/rounds/patch-round-dates.md)|Updates the date and time bounds for the *Round* with the specified ID|
+|DELETE|[/rounds/{id}](endpoints/rounds/delete-round.md)|Deletes the *Round* with the specified ID"|
 <br/>
 
 
@@ -24,7 +24,7 @@
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-|PUT|/matches/results|Updates the results from one to multiple *matches*|
+|PUT|[/matches/results](endpoints/matches/put-results.md)|Updates the results from one to multiple *matches*|
 <br/>
 
 
