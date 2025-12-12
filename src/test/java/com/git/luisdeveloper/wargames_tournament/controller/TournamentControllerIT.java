@@ -155,8 +155,7 @@ public class TournamentControllerIT {
 		Long tournamentId = sampleTournament.getId();
 		// when then
 		mockMvc.perform(delete("/tournaments/" + tournamentId).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNoContent()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(content().string("Tournament succesfully deleted"));
+				.andExpect(status().isNoContent());
 
 	}
 	

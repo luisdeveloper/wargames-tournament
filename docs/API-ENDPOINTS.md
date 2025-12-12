@@ -2,10 +2,12 @@
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-|GET|/tournaments/{id}/summary|Retrieves data from *Tournament* whose id is received as parameter|
-|GET|/tournaments/{id}/current-round|Retrieves the next round with no generated matches, from the *Tournament* whose id is received as parameter|
-|POST|/tournaments|Adds a new *Tournament* to the database|
-|POST|/tournaments/{tournamentId}/current-round/matches|Generates matches for the next *Round* with no generated matches|
+|GET|[/tournaments/{id}/summary](endpoints/tournaments/get-summary.md)|Retrieves summary information for the *Tournament* whose ID is provided in the path parameter|
+|GET|[/tournaments/{id}/current-round](endpoints/tournaments/get-current-round.md)|Retrieves the next round of the *Tournament* (identified by the provided ID) that does not yet have generated matches|
+|POST|[/tournaments](endpoints/tournaments/post-tournament.md)|Adds a new *Tournament* to the database|
+|POST|[/tournaments/{tournamentId}/current-round/matches](endpoints/tournaments/post-matches.md)|Retrieves summary information for the *Tournament* whose ID is provided in the path parameter|
+|DELETE|[/tournaments/{id}](endpoints/tournaments/delete-tournament.md)|Deletes the *Tournament* identified by the given ID|
+
 <br/>
 
 # **RoundController**
