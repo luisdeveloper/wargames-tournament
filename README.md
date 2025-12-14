@@ -10,5 +10,8 @@ Inspired by CRM principles, it provides a structured way to handle relationships
 
 <br/>
 
-## Available endpoints
-[Available Endpoints](docs/API-ENDPOINTS.md)
+## [Requirements](REQUIREMENTS.md)
+
+
+## [Endpoints](docs/API-ENDPOINTS.md)
+
