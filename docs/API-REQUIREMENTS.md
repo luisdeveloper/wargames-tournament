@@ -14,5 +14,13 @@
 - com.h2database:h2:jar:2.2.224:runtime
 - org.springframework.boot:spring-boot-starter-test:jar:3.3.4:test
 
+## Environment Variables
+
+| Variable | Description | Required | Notes |
+|---------|-------------|----------|-------|
+| DB_URL | JDBC URL for the PostgreSQL database | Yes | Must point to the production database |
+| DB_USER | Database username | Yes | |
+| DB_PASSWORD | Database password | Yes | Must be provided securely |
+
 
 
