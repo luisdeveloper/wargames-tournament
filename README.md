@@ -15,5 +15,7 @@ Inspired by CRM principles, it provides a structured way to handle relationships
 
 ## [Endpoints](docs/API-ENDPOINTS.md)
 
+## [Persistence and Data Storage](docs/PERSISTENCE.md)
+
 ## [Tests](docs/API-TESTS.md)
 
