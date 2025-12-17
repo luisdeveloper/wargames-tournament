@@ -72,6 +72,7 @@ erDiagram
     TOURNAMENT ||--o{ TOURNAMENT_PLAYER : registers
     PLAYER ||--o{ TOURNAMENT_PLAYER : participates
 ```
+
 ## Persistence Technology
 
 - Spring Data JPA (Hibernate as JPA provider)
