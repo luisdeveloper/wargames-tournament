@@ -13,6 +13,8 @@ Future iterations may introduce authentication, observability, and infrastructur
 <br/> 
 
 ## [Requirements](docs/API-REQUIREMENTS.md) 
+## [Installation and Running](docs/API-INSTALLATION.md)
+## [CI/CD](docs/API-CICD.md)
 ## [Project Structure](docs/API-STRUCTURE.md) 
 ## [Endpoints](docs/API-ENDPOINTS.md) 
 ## [Persistence and Data Storage](docs/API-PERSISTENCE.md) 
