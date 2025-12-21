@@ -12,6 +12,7 @@ Inspired by CRM principles, it provides a structured way to handle relationships
 
 ## [Requirements](docs/API-REQUIREMENTS.md)
 
+## [Project Structure](docs/API-STRUCTURE.md)
 
 ## [Endpoints](docs/API-ENDPOINTS.md)
 
