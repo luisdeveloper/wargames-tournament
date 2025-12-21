@@ -1,32 +1,32 @@
-### Flujo de ramas
-- `master`: rama estable y desplegable.
-- `develop`: rama de integración (opcional).
-- `feature/<nombre>`: nuevas funcionalidades.
-- `fix/<nombre>`: correcciones de errores.
-- `test/<nombre>`: creación o mejora de tests.
-- `docs/<nombre>`: cambios de documentación.
+### Branching Strategy
+- `master`: stable and deployable branch.
+- `develop`: integration branch (optional)
+- `feature/<nombre>`: new features.
+- `fix/<nombre>`: bug fixes.
+- `test/<nombre>`: creation or improvement of tests.
+- `docs/<nombre>`: documentation changes.
 
 ### Commits
 Usamos la convención [Conventional Commits](https://www.conventionalcommits.org/):
-- `feat:` nueva funcionalidad
-- `fix:` corrección de bug
-- `test:` tests nuevos o mejorados
-- `refactor:` cambios internos sin alterar el comportamiento
-- `docs:` documentación
+- `feat:` new functionality.
+- `fix:` bug fixes
+- `test:` new or improved tests
+- `refactor:` internal changes without altering behaviour
+- `docs:` documentation updates
 
-### Estilo de código
+### Code Style
 - Java 21
-- Uso de `record` para DTOs inmutables
-- Métodos de servicio con anotaciones `@Transactional` donde aplica
+- Use of `record` for inmutables DTOs.
+- Service methods annotated with `@Transactional` where applicable.
 
 ### Tests
-- Unit tests: en `src/test/java`, usando JUnit 5 y Mockito.
-- Integration tests: en `src/test/java`.
-- Los tests deben ejecutarse con `mvn test` sin errores.
-- Cada PR debe incluir tests para nuevas funcionalidades.
+- Unit tests: located in `src/test/java`, using JUnit 5 and Mockito.
+- Integration tests: located in `src/test/java`.
+- Tests must run successfully using `mvn test`.
+- Each pull request must include tests for new features.
 
 ### Build
-1. Clonar el repo
-2. `mvn clean install`
-3. Ejecutar la app: `java -jar target/tournament.jar`
+1. Clone the repository
+2. Run mvn clean install
+3. Run the application: java -jar target/tournament.jar
 
