@@ -20,3 +20,5 @@ Inspired by CRM principles, it provides a structured way to handle relationships
 
 ## [Tests](docs/API-TESTS.md)
 
+## [Security](docs/API-SECURITY.md)
+
