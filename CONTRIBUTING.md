@@ -7,7 +7,7 @@
 - `docs/<nombre>`: documentation changes.
 
 ### Commits
-Usamos la convención [Conventional Commits](https://www.conventionalcommits.org/):
+We follow the [Conventional Commits](https://www.conventionalcommits.org/) convention:
 - `feat:` new functionality.
 - `fix:` bug fixes
 - `test:` new or improved tests
