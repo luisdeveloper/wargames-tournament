@@ -23,7 +23,7 @@ mvn spring-boot:run
 When running with the `prod` profile, the application expects a PostgreSQL
 database to be available and configured via environment variables.
 
-See → [API Requirements](docs/API-REQUIREMENTS.md) for the full list of required environment variables.
+See → [API Requirements](API-REQUIREMENTS.md) for the full list of required environment variables.
 
 Example:
 ```bash
