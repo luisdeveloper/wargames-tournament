@@ -3,7 +3,7 @@
 ## Prerequisites
 
 Make sure all required versions and environment variables are configured as
-described in the [Requirements](docs/API-REQUIREMENTS.md) document.
+described in the [Requirements](API-REQUIREMENTS.md) document.
 
 ---
 
