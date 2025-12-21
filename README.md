@@ -6,7 +6,8 @@ Tournament Relationship Management (TRM) System A modular Java backend designed 
 💡 Ready for Angular front-end integration and future extensions with NoSQL (MongoDB). 
 
 ## Project Status 
-This project represents a stable first version of the application. 
+This project represents a stable first version of the application.
+
 Future iterations may introduce authentication, observability, and infrastructure improvements. 
 
 <br/> 
