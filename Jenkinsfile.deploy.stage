@@ -2,6 +2,7 @@ pipeline{
     agent any
     parameters {
         string(name: 'JAR_VERSION', description: 'specify version')
+        string(name: 'BRANCH', description: 'Branch\'s name you want to deploy')
     }
     environment {
         JAR_GROUP_ID = "com.git.luisdeveloper"
@@ -22,7 +23,7 @@ pipeline{
         }
         stage("Download Dockerfile"){
             steps{
-                git branch: 'master', url:'https://github.com/luisdeveloper/wargames-tournament'
+                git branch: '$BRANCH', url:'https://github.com/luisdeveloper/wargames-tournament'
             }
         }
         stage("Download JAR"){
