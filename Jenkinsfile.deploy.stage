@@ -1,10 +1,12 @@
 pipeline{
     agent any
-    
+    parameters {
+        string(name: 'JAR_VERSION', description: 'specify version')
+        string(name: 'BRANCH', description: 'Branch\'s name you want to deploy')
+    }
     environment {
         JAR_GROUP_ID = "com.git.luisdeveloper"
         JAR_ARTIFACT_ID = "wargames-tournament"
-        JAR_VERSION = "0.0.1-SNAPSHOT"
         JAR_REPO_URL = "https://maven.pkg.github.com/luisdeveloper/wargames-tournament"
         LOCAL_JAR_PATH = "${JAR_ARTIFACT_ID}-${JAR_VERSION}.jar"
         DOCKER_IMAGE    = "wargames-tournament-app"
@@ -21,7 +23,7 @@ pipeline{
         }
         stage("Download Dockerfile"){
             steps{
-                git 'https://github.com/luisdeveloper/wargames-tournament'
+                git branch: '$BRANCH', url:'https://github.com/luisdeveloper/wargames-tournament'
             }
         }
         stage("Download JAR"){
