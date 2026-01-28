@@ -1,10 +1,10 @@
 ### Branching Strategy
 - `master`: stable and deployable branch.
 - `develop`: integration branch (optional)
-- `feature/<nombre>`: new features.
-- `fix/<nombre>`: bug fixes.
-- `test/<nombre>`: creation or improvement of tests.
-- `docs/<nombre>`: documentation changes.
+- `feature/<name>`: new features.
+- `fix/<name>`: bug fixes.
+- `test/<name>`: creation or improvement of tests.
+- `docs/<name>`: documentation changes.
 
 ### Commits
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) convention:
