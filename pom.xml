@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.git.luisdeveloper</groupId>
 	<artifactId>wargames-tournament</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>wargames-tournament</name>
 	<description>Proyecto para la gestión de un torneo de wargames</description>
 	<distributionManagement>
