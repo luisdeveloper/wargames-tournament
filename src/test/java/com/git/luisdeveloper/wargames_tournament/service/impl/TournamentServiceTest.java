@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.git.luisdeveloper.wargames_tournament.dto.PlayerRegistrationDTO;
 import com.git.luisdeveloper.wargames_tournament.exception.TournamentNotFoundException;
+import com.git.luisdeveloper.wargames_tournament.logging.ServiceLogFormatter;
 import com.git.luisdeveloper.wargames_tournament.repository.TournamentRepository;
 import com.git.luisdeveloper.wargames_tournament.service.RoundService;
 
@@ -27,6 +28,9 @@ public class TournamentServiceTest {
 	
 	@InjectMocks
 	private TournamentServiceImpl service;
+	
+	@Mock
+	private ServiceLogFormatter formatter;
 	
 	
 	@Test

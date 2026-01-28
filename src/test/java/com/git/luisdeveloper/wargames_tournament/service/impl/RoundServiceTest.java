@@ -27,6 +27,7 @@ import com.git.luisdeveloper.wargames_tournament.entity.Round;
 import com.git.luisdeveloper.wargames_tournament.enums.MatchResult;
 import com.git.luisdeveloper.wargames_tournament.exception.NoPendingRoundsException;
 import com.git.luisdeveloper.wargames_tournament.exception.RoundAlreadyStartedException;
+import com.git.luisdeveloper.wargames_tournament.logging.ServiceLogFormatter;
 import com.git.luisdeveloper.wargames_tournament.repository.RoundRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +38,9 @@ public class RoundServiceTest {
 
 	@Mock
 	private MatchInternalService matchInternalService;
+	
+	@Mock
+	private ServiceLogFormatter formatter;
 
 	@InjectMocks
 	private RoundServiceImpl service;

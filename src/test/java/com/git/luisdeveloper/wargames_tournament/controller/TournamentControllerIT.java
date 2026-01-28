@@ -78,6 +78,17 @@ public class TournamentControllerIT {
 				.andExpect(jsonPath("name", is(sampleTournament.getName())));
 
 	}
+	
+	@Test
+	void given_invalid_tournamentId_when_calling_getTournamentSummary_then_return_status_not_found()
+			throws Exception {
+		// given
+		Long invalidTournamentId = sampleTournament.getId() + 100L;
+		// when then
+		mockMvc.perform(get("/tournaments/" + invalidTournamentId + "/summary").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+
+	}
 
 	@Test
 	void given_valid_tournamentId_when_calling_getRound_then_return_status_ok_and_RoundDTO() throws Exception {
@@ -89,6 +100,15 @@ public class TournamentControllerIT {
 				.andExpect(jsonPath("roundDate", is(sampleRound.getRoundDate().toString())))
 				.andExpect(jsonPath("beginTime", is(sampleRound.getBeginTime().toString())))
 				.andExpect(jsonPath("endTime", is(sampleRound.getEndTime().toString())));
+	}
+	
+	@Test
+	void given_invalid_tournamentId_when_calling_getRound_then_return_status_not_found() throws Exception {
+		// given
+		Long invalidTournamentId = sampleTournament.getId() + 100L;
+		// when then
+		mockMvc.perform(get("/tournaments/" + invalidTournamentId + "/current-round").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -118,6 +138,16 @@ public class TournamentControllerIT {
 				.andExpect(jsonPath("beginTime", is(sampleRound.getBeginTime().toString())))
 				.andExpect(jsonPath("endTime", is(sampleRound.getEndTime().toString())));
 	}
+	
+	@Test
+	void given_invalid_tournamentId_when_calling_generateMatches_then_return_status_not_found() throws Exception {
+		// given
+		Long invalidTournamentId = sampleTournament.getId() + 100L;
+		// when then
+		mockMvc.perform(
+				post("/tournaments/" + invalidTournamentId + "/current-round/matches").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+	}
 
 	@Test
 	void given_valid_tournamentId_when_calling_deleteTournament_then_return_status_ok() throws Exception {
@@ -125,8 +155,17 @@ public class TournamentControllerIT {
 		Long tournamentId = sampleTournament.getId();
 		// when then
 		mockMvc.perform(delete("/tournaments/" + tournamentId).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(content().string("Tournament succesfully deleted"));
+				.andExpect(status().isNoContent());
+
+	}
+	
+	@Test
+	void given_invalid_tournamentId_when_calling_deleteTournament_then_return_status_ok() throws Exception {
+		// given
+		Long invalidTournamentId = sampleTournament.getId() + 100L;
+		// when then
+		mockMvc.perform(delete("/tournaments/" + invalidTournamentId).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
 
 	}
 

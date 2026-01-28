@@ -1,2 +1,23 @@
-# wargames-tournament
-API created to manage a tournament for wargames
+# wargames-tournament 
+Tournament Relationship Management (TRM) System A modular Java backend designed to manage tournaments, players, rounds, and match results. Built with Spring Boot, JPA, and Maven, it includes authentication, RESTful APIs, and repository integration tests. Inspired by CRM principles, it provides a structured way to handle relationships between participants, scoring, and competition rounds — scalable to any two-player game such as wargames, chess, tennis, or even football teams. 
+
+💡 Includes unit and integration testing, and logging with Java Logger 
+
+💡 Ready for Angular front-end integration and future extensions with NoSQL (MongoDB). 
+
+## Project Status 
+This project represents a stable first version of the application.
+
+Future iterations may introduce authentication, observability, and infrastructure improvements. 
+
+<br/> 
+
+## [Requirements](docs/API-REQUIREMENTS.md) 
+## [Installation and Running](docs/API-INSTALLATION.md)
+## [CI/CD](docs/API-CICD.md)
+## [Project Structure](docs/API-STRUCTURE.md) 
+## [Endpoints](docs/API-ENDPOINTS.md) 
+## [Persistence and Data Storage](docs/API-PERSISTENCE.md) 
+## [Tests](docs/API-TESTS.md) 
+## [Security](docs/API-SECURITY.md) 
+## [Versioning and Evolution](docs/API-VERSIONING.md)

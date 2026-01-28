@@ -13,7 +13,7 @@ public interface PlayerService {
 
 	void updatePlayer(UpdatePersonalDataDTO player) throws PlayerNotFoundException;
 
-	void updatePlayer(UpdatePasswordDTO player) throws InvalidCredentialsException;
+	void updatePlayer(UpdatePasswordDTO player) throws InvalidCredentialsException, PlayerNotFoundException;
 
 	void deletePlayer(Long id) throws PlayerNotFoundException;
 
