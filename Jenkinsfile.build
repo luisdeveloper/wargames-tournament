@@ -2,11 +2,12 @@ pipeline{
     agent any
     parameters {
         choice(name: 'PROFILE', choices: ['Development', 'Production'], description: 'Choose maven profile')
+        string(name: 'BRANCH', description: 'Branch\'s name you want to build')
     }
     stages{
         stage("Download from repository"){
             steps{
-                git branch: 'master' , url: 'https://github.com/luisdeveloper/wargames-tournament'
+                git branch: '$BRANCH' , url: 'https://github.com/luisdeveloper/wargames-tournament'
             }
         }
         stage("Run unit tests"){
